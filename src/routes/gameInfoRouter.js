@@ -2,6 +2,8 @@ import { Router } from "express";
 import { getCategories, getGames, postCategories, postGames } from "../controllers/gameInfoController.js";
 import { validateCategorie } from "../middlewares/validateCategorieMiddleware.js";
 import { validateGames } from "../middlewares/validateGamesMiddleware.js";
+import dotenv from "dotenv"; 
+dotenv.config(); 
 
 const router = Router();
 
