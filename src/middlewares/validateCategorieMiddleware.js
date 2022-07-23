@@ -9,8 +9,9 @@ export async function validateCategorie(req,res,next) {
     }
 
     try {
-        const findRepetead = await connection.query('SELECT * FROM categories WHERE name= $1',[req.body.name]);
-        if(findRepetead) { 
+        const { rows: findRepetead }= await connection.query('SELECT * FROM categories WHERE name= $1',[req.body.name]); 
+        console.log(findRepetead.length);
+        if(findRepetead.length !== 0) { 
             return res.sendStatus(409);
         }
     } catch (error) {

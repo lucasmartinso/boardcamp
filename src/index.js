@@ -9,8 +9,6 @@ app.use(express.json());
 
 app.use(gameInfoRouter);
 
-const door = process.env.PORT || 4000;
-
-app.listen(door, () => { 
-    console.log(chalk.blue.bold(`\nRodando na porta ${door}`));
+app.listen(process.env.PORT, () => { 
+    console.log(chalk.blue.bold(`\nRodando na porta ${process.env.PORT}`));
 })

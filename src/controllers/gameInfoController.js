@@ -29,11 +29,14 @@ export async function postCategories(req,res) {
     }
 } 
 
-export async function getGames(req,res) { 
+export async function getGames(req,res) {  
+    const { name } = req.query;
+    console.log(name);
     try {
-        const {rows: games} = await connection.query('SELECT * FROM games');
+        const {rows: games} = await connection.query('SELECT g.*,c.name as "categoryName" FROM games g JOIN categories c ON c.id = g."categoryId"');
         return res.send(games).status(200);
     } catch (error) {
+        console.log(error);
         return res.sendStatus(500);
     }
 }
@@ -41,9 +44,10 @@ export async function getGames(req,res) {
 export async function postGames(req,res) { 
     const { name, image, stockTotal, categoryId, pricePerDay } = req.body;
     try {
-        await connection.query('INSERT INTO games (name,image,stockTotal,categoryId,pricePerDay) VALUES ($1,$2,$3,$4,$5)',[name,image,stockTotal,categoryId,pricePerDay]);
-        return res.sendStatus(2001);
+        await connection.query('INSERT INTO games (name,image,"stockTotal","categoryId","pricePerDay") VALUES ($1,$2,$3,$4,$5)',[name,image,stockTotal,categoryId,pricePerDay]);
+        return res.sendStatus(201);
     } catch (error) {
+        console.log(error);
         return res.sendStatus(500);
     }
 }
