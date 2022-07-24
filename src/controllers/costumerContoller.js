@@ -43,7 +43,8 @@ export async function getCustomersById(req,res) {
 export async function postCustomers(req,res) { 
     const { name, phone, cpf, birthday} = req.body; 
     try {
-        return res.send(200);
+        await connection.query('INSERT INTO customers (name,phone,cpf,birthday) VALUES ($1,$2,$3,$4)',[name,phone,cpf,birthday]);
+        return res.send(201);
     } catch (error) {
         console.log(error); 
         return res.sendStatus(500);
@@ -51,5 +52,5 @@ export async function postCustomers(req,res) {
 }
 
 export async function updateCustomers(req,res) { 
-
+    
 }
