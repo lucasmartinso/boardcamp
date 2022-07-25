@@ -34,7 +34,6 @@ export async function getRentals(req,res) {
                 INNER JOIN categories cat ON g."categoryId" = cat.id`); 
             return res.send(rentals.map(rent => rent.json_build_object)).status(200);
         } else if(customerId && !gameId) { 
-            console.log("entrou");
             const { rows: rentalsCustomer } = await connection.query(`SELECT json_build_object(
                 'id', r.id,
                 'customerId', r."customerId",
@@ -62,7 +61,6 @@ export async function getRentals(req,res) {
                 WHERE r."customerId" = $1`,[customerId]); 
             return res.send(rentalsCustomer.map(rent => rent.json_build_object)).status(200);
         } else if(!customerId && gameId) { 
-            console.log("ta lá");
             const { rows: rentalsGame } = await connection.query(`SELECT json_build_object(
                 'id', r.id,
                 'customerId', r."customerId",

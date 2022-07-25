@@ -40,9 +40,10 @@ export async function getGames(req,res) {
                 FROM games g 
                 JOIN categories c ON c.id = g."categoryId"
                 WHERE g.name
-                LIKE '$1'`,
-                values: [lowerCaseName + "%"]
+                LIKE ($1)`,
+                values: [`${lowerCaseName}%`]
             })
+            console.log(games);
             return res.send(games).status(200);
         } else { 
             const {rows: games} = await connection.query(`
