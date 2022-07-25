@@ -30,13 +30,29 @@ export async function postCategories(req,res) {
 } 
 
 export async function getGames(req,res) {  
-    const { name } = req.query;
-    console.log(name);
+    const { name } = req.query; 
+
     try {
-        const {rows: games} = await connection.query('SELECT g.*,c.name as "categoryName" FROM games g JOIN categories c ON c.id = g."categoryId"');
+        if(name) {
+            const lowerCaseName = name.toLowerCase();
+            const {rows: games} = await connection.query({
+                text: `SELECT g.*,c.name as "categoryName" 
+                FROM games g 
+                JOIN categories c ON c.id = g."categoryId"
+                WHERE g.name
+                LIKE '$1'`,
+                values: [lowerCaseName + "%"]
+            })
+            return res.send(games).status(200);
+        } else { 
+            const {rows: games} = await connection.query(`
+            SELECT g.*,c.name as "categoryName" 
+            FROM games g 
+            JOIN categories c ON c.id = g."categoryId"`);
         return res.send(games).status(200);
+        }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return res.sendStatus(500);
     }
 }
