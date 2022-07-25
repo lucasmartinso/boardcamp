@@ -1,18 +1,15 @@
 import express from "express";
 import chalk from "chalk";
 import cors from "cors";
-import dotenv from "dotenv"; 
-import gameInfoRouter from './routes/gameInfoRouter.js';
+import gameInfoRouter from './routes/gameInfoRouter.js'; 
+import customersRouter from './routes/customersRouter.js'
 
 const app = express();
 app.use(cors());
-app.use(express.json());
-dotenv.config(); 
+app.use(express.json()); 
 
-app.use(gameInfoRouter);
+app.use(gameInfoRouter,customersRouter);
 
-const door = process.env.PORT || 4000;
-
-app.listen(door, () => { 
-    console.log(chalk.blue.bold(`\nRodando na porta ${door}`));
+app.listen(process.env.PORT, () => { 
+    console.log(chalk.blue.bold(`\nRodando na porta ${process.env.PORT}`));
 })
