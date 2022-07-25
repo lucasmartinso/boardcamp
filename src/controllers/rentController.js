@@ -165,9 +165,7 @@ export async function deleteRentals(req,res) {
     } 
 
     try {
-        const { rows: devolvidos } = await connection.query('SELECT * FROM games');
         await connection.query('DELETE FROM rentals WHERE id= $1', [id]); 
-        console.log(devolvidos);
         return res.sendStatus(200);
     } catch (error) {
         console.log(error);
