@@ -7,11 +7,13 @@ export async function getCustomers(req,res) {
     console.log(cpf);
     try {
         if(cpf) { 
-            console.log("CPF passado na rota");
-            const { rows: customers } = await connection.query('SELECT * FROM customers WHERE cpf LIKE "$1%"', [cpf]);
+            const { rows: customers } = await connection.query({
+                text: `SELECT * FROM customers
+                WHERE cpf 
+                LIKE ($1)`, 
+                values: [`${cpf}%`]});
             return res.send(customers).status(200);
         } else {
-            console.log("CPF não passado na rota");
             const { rows: customers } = await connection.query('SELECT * FROM customers');
             return res.send(customers).status(200); 
         }
