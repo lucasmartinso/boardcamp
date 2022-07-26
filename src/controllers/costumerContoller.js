@@ -31,7 +31,7 @@ export async function getCustomersById(req,res) {
         if(customers.length === 0) { 
             return res.sendStatus(404);
         }
-        return res.send(customers).status(200); 
+        return res.send(customers[0]).status(200); 
     } catch (error) {
         console.log(error); 
         return res.sendStatus(500);
@@ -51,7 +51,8 @@ export async function postCustomers(req,res) {
 
 export async function updateCustomers(req,res) { 
     const { id } = req.params;
-    const { name, phone, cpf, birthday} = req.body; 
+    const { name, phone, cpf, birthday } = req.body; 
+    
     try {
         await connection.query('UPDATE customers SET name= $1, phone= $2, cpf= $3, birthday= $4 WHERE id= $5',[name,phone,cpf,birthday,id]);
         return res.send(200);
