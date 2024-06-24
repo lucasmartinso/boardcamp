@@ -6,7 +6,7 @@
 
 <p align = "center">
    <img src="https://img.shields.io/badge/author-lucasmartinso-4dae71?style=flat-square" />
-   <img src="https://img.shields.io/github/languages/count/lucasmartinso/projeto13-mywallet-back?color=4dae71&style=flat-square" />
+   <img src="https://img.shields.io/github/languages/count/lucasmartinso/boardcamp?color=4dae71&style=flat-square" />
 </p>
 
 
